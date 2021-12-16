@@ -1,0 +1,77 @@
+<section data-section-id="{{ section.id }}" data-section-type="known-from-banner" style="background-color: {{ section.settings.bg_color }};">
+	<div class="">
+        <div class="known-from-blocks flex-container">
+        {%- for block in section.blocks -%}
+            {%- assign img_url = block.settings.image -%}
+                <a target="_blank" class="known-from-block" href="block.settings.url">
+                    <div class="known-from-image-container">
+                        <img src="{{ img_url | img_url: '200x' }}"
+                            class="known-from-logo"
+                            alt="{{ img_url.alt | escape | default: logo }}"
+                            loading="lazy"
+                            >
+                  </div>
+                </a>
+        {%- endfor -%}
+        </div>
+	</div>
+</section>
+
+<style>
+
+  .flex-container {
+  	display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    flex-direction: row;
+    flex-basis: 200px;
+  }
+  .known-from-block {
+  padding: 1em;
+  flex-shrink: 1;
+  }
+  
+  .known-from-logo {max-width:100%;}
+
+
+</style>
+
+{% schema %}
+{
+	"name": "Known From Banner",
+	"class": "shopify-section--known-from",
+	"settings": 
+		[
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#fff"
+        }
+	],
+	"blocks": [
+		{
+			"name": "Item",
+			"type": "item",
+			"settings": [
+                {
+					"type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+				},
+                {
+                    "type": "url",
+                    "id": "url",
+                    "label": "Link"
+                }
+			]
+		}
+	],
+    "presets": [
+			{
+				"name": "Known From Banner",
+				"category": "PO Toolbox"
+            }
+            ]
+}
+{% endschema %}
